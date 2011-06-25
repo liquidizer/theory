@@ -10,4 +10,4 @@ subplot(3,1,2)
 plot(X2,Y2,'.')
 
 subplot(3,1,3)
-plot(X3,Y3,'.')
+plot(X3,Y3,'.';)
