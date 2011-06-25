@@ -10,5 +10,6 @@ for i= 1 : length(methods)
   E=[E, W(:,3)];
 end
 
-errorbar(X,R,E)
+%errorbar(X,R,E)
+plot(X,R)
 legend(methods)
