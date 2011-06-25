@@ -9,7 +9,7 @@ for nv=x
 
   % repeat simplation
   r=[];
-  for s=1:300000
+  for s=1:10000
       
     % first n-1 voters vote randomly
     V= floor(2*rand(n-1,m));
@@ -18,10 +18,14 @@ for nv=x
     % Compute voting weight of last voter
     if strcmp(method, 'approval')
       % one vote for each of best nv candidates
-      V= [V; [1:m]<=nv];
+      Vp= zeros(1, m);
+      Vp(x<=nv & (x<=m/2))=1;
+      Vp(x>nv & (x>m/2))=-1;
+      V= [V; Vp];
     elseif strcmp(method, 'liquidizer')
       % first nv candidates with decreasing preference
-      V= [V; max(0, (nv+1)-[1:m])];
+      Vp= max(0, (nv+1)-[1:m]);
+      V= [V; Vp-mean(Vp)];
       % normalize non zero voting vectors with 2-norm
       V= diag(sparse(1./sqrt(sum(V.^2,2)))) * V;
     elseif strcmp(method, 'cumulative')
